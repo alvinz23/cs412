@@ -1,0 +1,21 @@
+{% extends "quotes/base.html" %}
+
+{% block content %}
+  <div class="card">
+    <h2>All Quotes</h2>
+    <ol class="list">
+      {% for q in quotes %}
+        <li>“{{ q }}”</li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>All Images</h2>
+    <div class="img-grid">
+      {% for img in images %}
+        <img class="thumb" src="{{ img }}" alt="Famous person image">
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
