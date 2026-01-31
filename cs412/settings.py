@@ -130,8 +130,8 @@ MEDIA_URL = "media/"  # note: no leading slash!
 
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
-    STATIC_URL = '/alvinzhu/static/'
-    MEDIA_URL = '/alvinzhu/media/'
+    STATIC_URL = '/alvinz/static/'
+    MEDIA_URL = '/alvinz/media/'
 
 
 # Default primary key field type

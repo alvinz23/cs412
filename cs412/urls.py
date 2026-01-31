@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('quotes.urls')),
+    path('cs412/quotes/', include('quotes.urls')),
 ]
