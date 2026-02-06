@@ -1,0 +1,23 @@
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+  <div class="card">
+    <h2>Welcome</h2>
+    <p><strong>Location:</strong> 725 Commonwealth Ave, Boston, MA</p>
+
+    <h3>Hours</h3>
+    <table class="table">
+      <tr><th>Day</th><th>Hours</th></tr>
+      <tr><td>Mon–Thu</td><td>11:00 AM – 9:00 PM</td></tr>
+      <tr><td>Fri</td><td>11:00 AM – 10:00 PM</td></tr>
+      <tr><td>Sat</td><td>12:00 PM – 10:00 PM</td></tr>
+      <tr><td>Sun</td><td>12:00 PM – 8:00 PM</td></tr>
+    </table>
+
+    <h3>Photos</h3>
+    <div class="img-grid">
+    <img class="thumb" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Illuminated_facade_of_a_restaurant_serving_traditional_food_with_fresh_vegetables_in_Chiyoda%2C_Tokyo.jpg/960px-Illuminated_facade_of_a_restaurant_serving_traditional_food_with_fresh_vegetables_in_Chiyoda%2C_Tokyo.jpg" alt="Restaurant exterior in Tokyo">
+    <img class="thumb" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Truffle_ramen.jpg/960px-Truffle_ramen.jpg" alt="Ramen">
+    </div>
+  </div>
+{% endblock %}

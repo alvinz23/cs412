@@ -1,0 +1,78 @@
+{% extends "restaurant/base.html" %}
+
+{% block content %}
+  <div class="card">
+    <h2>Online Order</h2>
+
+    <form method="POST" action="{% url 'restaurant_confirmation' %}">
+      {% csrf_token %}
+
+      <h3>Menu</h3>
+      <div class="form-grid">
+        {% for item in menu %}
+          <div class="menu-item">
+            <label class="check">
+              <input type="checkbox" name="items" value="{{ item.key }}">
+              <strong>{{ item.name }}</strong> — ${{ item.price }}
+            </label>
+
+            {% if item.key == "ramen" %}
+              <img class="menu-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Truffle_ramen.jpg/960px-Truffle_ramen.jpg" alt="Ramen">
+
+              <div class="options">
+                <p class="muted">Ramen add-ons:</p>
+                {% for ad in ramen_addons %}
+                  <label class="check small">
+                    <input type="checkbox" name="ramen_addons" value="{{ ad.key }}">
+                    {{ ad.name }} (+${{ ad.price }})
+                  </label>
+                {% endfor %}
+              </div>
+
+            {% elif item.key == "bibimbap" %}
+              <img class="menu-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Korean.food-Bibimbap-02.jpg/960px-Korean.food-Bibimbap-02.jpg" alt="Bibimbap">
+
+            {% elif item.key == "katsu" %}
+              <img class="menu-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Chicken_Cutlet_001.jpg/960px-Chicken_Cutlet_001.jpg" alt="Chicken katsu">
+
+            {% elif item.key == "sushi" %}
+              <img class="menu-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sushi_Roll.jpg/960px-Sushi_Roll.jpg" alt="Sushi roll">
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <h3>Daily Special</h3>
+      <label class="check">
+        <input type="checkbox" name="daily_special">
+        <strong>{{ daily_special.name }}</strong> — ${{ daily_special.price }}
+        <span class="muted">({{ daily_special.desc }})</span>
+      </label>
+
+      <input type="hidden" name="daily_special_name" value="{{ daily_special.name }}">
+      <input type="hidden" name="daily_special_price" value="{{ daily_special.price }}">
+
+      <img class="menu-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/TERIYAKI_SALMON_SALAD_-_Jonny%27s_2025-05-27.jpg/960px-TERIYAKI_SALMON_SALAD_-_Jonny%27s_2025-05-27.jpg" alt="Daily special">
+
+      <h3>Special Instructions</h3>
+      <textarea name="instructions" rows="3" placeholder="Allergies, spice level, pickup notes..."></textarea>
+
+      <h3>Customer Info</h3>
+      <div class="two-col">
+        <div>
+          <label>Name</label>
+          <input type="text" name="customer_name" required>
+        </div>
+        <div>
+          <label>Phone</label>
+          <input type="text" name="customer_phone" required>
+        </div>
+      </div>
+
+      <label>Email</label>
+      <input type="email" name="customer_email" required>
+
+      <button class="btn" type="submit">Place Order</button>
+    </form>
+  </div>
+{% endblock %}
