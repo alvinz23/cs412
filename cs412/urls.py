@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cs412/quotes/', include('quotes.urls')),
     path('cs412/restaurant/', include('restaurant.urls')),
+    path('mini_insta/', include('mini_insta.urls')),
+    path('cs412/mini_insta/', include('mini_insta.urls')),
 ]

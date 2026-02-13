@@ -1,0 +1,34 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>{{ profile.display_name }}</h2>
+
+<article class="profile-detail">
+    <img src="{{ profile.profile_image_url }}" alt="{{ profile.display_name }} profile picture">
+    <table>
+        <tr>
+            <th>Username</th>
+            <td>{{ profile.username }}</td>
+        </tr>
+        <tr>
+            <th>Display Name</th>
+            <td>{{ profile.display_name }}</td>
+        </tr>
+        <tr>
+            <th>Bio</th>
+            <td>{{ profile.bio_text }}</td>
+        </tr>
+        <tr>
+            <th>Join Date</th>
+            <td>{{ profile.join_date }}</td>
+        </tr>
+    </table>
+
+    <section class="coming-soon">
+        <h3>Coming Soon</h3>
+        <p>Followers: TBD</p>
+        <p>Following: TBD</p>
+        <p>Posts by this profile: TBD</p>
+    </section>
+</article>
+{% endblock %}

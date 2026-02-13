@@ -1,0 +1,21 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>All Profiles</h2>
+
+<section class="profile-grid">
+    {% for profile in profiles %}
+    <article class="profile-card">
+        <a href="{% url 'show_profile' profile.pk %}">
+            <img src="{{ profile.profile_image_url }}" alt="{{ profile.display_name }} profile picture">
+        </a>
+        <div class="profile-meta">
+            <p><strong>Username:</strong> {{ profile.username }}</p>
+            <p><strong>Display Name:</strong> {{ profile.display_name }}</p>
+        </div>
+    </article>
+    {% empty %}
+    <p>No profiles exist yet. Add profiles in the Django admin.</p>
+    {% endfor %}
+</section>
+{% endblock %}
