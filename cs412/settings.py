@@ -120,20 +120,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 import os
-import socket
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'  # note: no leading slash!
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = "media/"  # note: no leading slash!
+MEDIA_URL = "/media/"
 
-CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
-if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
+# BU webapps deploy path is /home/ugrad/<username>/webapps/<project>.
+# Detect that path instead of hostname so deployment works on hosts like csa2/csa3.
+if "/webapps/" in str(BASE_DIR):
     STATIC_URL = '/alvinz/static/'
     MEDIA_URL = '/alvinz/media/'
 
