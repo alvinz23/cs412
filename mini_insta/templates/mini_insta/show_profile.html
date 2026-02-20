@@ -23,12 +23,30 @@
             <td>{{ profile.join_date }}</td>
         </tr>
     </table>
-
-    <section class="coming-soon">
-        <h3>Coming Soon</h3>
-        <p>Followers: TBD</p>
-        <p>Following: TBD</p>
-        <p>Posts by this profile: TBD</p>
-    </section>
 </article>
+
+<section class="profile-posts">
+    <h3>Posts</h3>
+    <div class="post-grid">
+        {% for post in profile.get_all_posts %}
+        <article class="post-card">
+            <a href="{% url 'show_post' post.pk %}">
+                {% with photos=post.get_all_photos %}
+                    {% if photos %}
+                    <img src="{{ photos.0.image_url }}" alt="Preview image for post {{ post.pk }}">
+                    {% else %}
+                    <img src="https://placehold.co/600x600?text=No+Image" alt="No image available">
+                    {% endif %}
+                {% endwith %}
+            </a>
+            <div class="post-meta">
+                <p>{{ post.caption|default:"(No caption)" }}</p>
+                <p class="post-time">{{ post.timestamp }}</p>
+            </div>
+        </article>
+        {% empty %}
+        <p>No posts yet for this profile.</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

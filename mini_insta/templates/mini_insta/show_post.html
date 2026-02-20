@@ -1,0 +1,24 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>Post {{ post.pk }}</h2>
+
+<section class="single-post">
+    <p><strong>Creator:</strong> <a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a></p>
+    <p><strong>Caption:</strong> {{ post.caption|default:"(No caption)" }}</p>
+    <p><strong>Timestamp:</strong> {{ post.timestamp }}</p>
+
+    <h3>Photos</h3>
+    <div class="photo-grid">
+        {% for photo in post.get_all_photos %}
+        <figure>
+            <img src="{{ photo.image_url }}" alt="Photo {{ forloop.counter }} for post {{ post.pk }}">
+        </figure>
+        {% empty %}
+        <p>This post has no photos yet.</p>
+        {% endfor %}
+    </div>
+
+    <p><a href="{% url 'show_profile' post.profile.pk %}">Back to profile</a></p>
+</section>
+{% endblock %}

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini Insta</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'mini_insta/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'mini_insta/styles.css' %}?v=20260220a">
 </head>
 <body>
     <header class="site-header">
@@ -21,6 +21,9 @@
 
     <footer class="site-footer">
         <a href="{% url 'show_all_profiles' %}">Back to Profile List</a>
+        {% if profile %}
+        <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+        {% endif %}
     </footer>
 </body>
 </html>
