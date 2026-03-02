@@ -6,7 +6,7 @@ Description: Admin registrations for mini_insta models.
 
 from django.contrib import admin
 
-from .models import Photo, Post, Profile
+from .models import Comment, Follow, Like, Photo, Post, Profile
 
 
 @admin.register(Profile)
@@ -33,3 +33,35 @@ class PhotoAdmin(admin.ModelAdmin):
     list_display = ("id", "post", "timestamp")
     list_filter = ("timestamp",)
     search_fields = ("image_url", "post__caption")
+
+
+@admin.register(Follow)
+class FollowAdmin(admin.ModelAdmin):
+    """Define Django admin options for Follow records."""
+
+    list_display = ("id", "follower_profile", "profile", "timestamp")
+    list_filter = ("timestamp",)
+    search_fields = (
+        "profile__username",
+        "profile__display_name",
+        "follower_profile__username",
+        "follower_profile__display_name",
+    )
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    """Define Django admin options for Comment records."""
+
+    list_display = ("id", "post", "profile", "timestamp")
+    list_filter = ("timestamp",)
+    search_fields = ("text", "profile__username", "post__caption")
+
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    """Define Django admin options for Like records."""
+
+    list_display = ("id", "post", "profile", "timestamp")
+    list_filter = ("timestamp",)
+    search_fields = ("profile__username", "post__caption")

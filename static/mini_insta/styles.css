@@ -52,6 +52,11 @@ img {
     gap: 12px;
 }
 
+.feed-list {
+    display: grid;
+    gap: 16px;
+}
+
 .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
@@ -109,7 +114,9 @@ img {
 }
 
 .post-meta p,
-.profile-meta p {
+.profile-meta p,
+.comment-card p,
+.single-post p {
     margin: 6px 0;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -182,7 +189,9 @@ img {
 }
 
 .form-panel textarea,
-.form-panel input[type="url"] {
+.form-panel input[type="url"],
+.form-panel input[type="text"],
+.form-panel input[type="file"] {
     width: 100%;
     max-width: 600px;
     box-sizing: border-box;
@@ -191,6 +200,7 @@ img {
 
 .form-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     align-items: center;
 }
@@ -209,4 +219,28 @@ img {
 .form-actions button:hover,
 .button-link:hover {
     background: #111827;
+}
+
+.inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.comment-list {
+    display: grid;
+    gap: 10px;
+}
+
+.comment-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 10px;
+    background: #f9fafb;
+}
+
+.feed-photo {
+    width: 100%;
+    border-radius: 8px;
+    margin: 12px 0;
 }

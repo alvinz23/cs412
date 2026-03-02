@@ -1,0 +1,19 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>Search</h2>
+
+<section class="form-panel">
+    <form action="{% url 'search' profile.pk %}" method="GET">
+        <p>
+            <label for="id_query">Search Profiles and Posts:</label>
+            <input type="text" name="query" id="id_query">
+        </p>
+
+        <p class="form-actions">
+            <button type="submit">Search</button>
+            <a class="button-link" href="{% url 'show_profile' profile.pk %}">Cancel</a>
+        </p>
+    </form>
+</section>
+{% endblock %}

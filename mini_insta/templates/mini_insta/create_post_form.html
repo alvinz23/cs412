@@ -4,7 +4,7 @@
 <h2>Create Post for {{ profile.display_name }}</h2>
 
 <section class="form-panel">
-    <form action="{% url 'create_post' profile.pk %}" method="POST">
+    <form action="{% url 'create_post' profile.pk %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         <p>
@@ -13,8 +13,8 @@
         </p>
 
         <p>
-            <label for="id_image_url">Image URL:</label>
-            {{ form.image_url }}
+            <label for="id_files">Upload Photos:</label>
+            <input type="file" name="files" id="id_files" multiple>
         </p>
 
         <p class="form-actions">

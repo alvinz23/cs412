@@ -1,0 +1,38 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>{{ profile.display_name }} Feed</h2>
+
+<section class="feed-list">
+    {% for post in posts %}
+    <article class="single-post">
+        <p><strong><a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a></strong></p>
+        <p class="post-time">{{ post.timestamp }}</p>
+
+        {% with photos=post.get_all_photos %}
+            {% if photos %}
+            <img class="feed-photo" src="{{ photos.0.get_image_url }}" alt="Preview image for post {{ post.pk }}">
+            {% endif %}
+        {% endwith %}
+
+        <p><strong>Caption:</strong> {{ post.caption|default:"(No caption)" }}</p>
+        <p><strong>Likes:</strong> {{ post.get_likes.count }}</p>
+
+        <div class="comment-list">
+            {% for comment in post.get_all_comments %}
+            <article class="comment-card">
+                <p><strong>{{ comment.profile.display_name }}</strong></p>
+                <p>{{ comment.text }}</p>
+            </article>
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+
+        <p><a href="{% url 'show_post' post.pk %}">View post</a></p>
+    </article>
+    {% empty %}
+    <p>This feed is empty. Add follow relationships in the admin to populate it.</p>
+    {% endfor %}
+</section>
+{% endblock %}

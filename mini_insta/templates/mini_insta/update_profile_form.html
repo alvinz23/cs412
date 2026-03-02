@@ -1,0 +1,17 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>Update {{ profile.display_name }}</h2>
+
+<section class="form-panel">
+    <form action="{% url 'update_profile' profile.pk %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <p class="form-actions">
+            <button type="submit">Save Profile</button>
+            <a class="button-link" href="{% url 'show_profile' profile.pk %}">Cancel</a>
+        </p>
+    </form>
+</section>
+{% endblock %}

@@ -22,7 +22,21 @@
             <th>Join Date</th>
             <td>{{ profile.join_date }}</td>
         </tr>
+        <tr>
+            <th>Followers</th>
+            <td><a href="{% url 'show_followers' profile.pk %}">{{ profile.get_num_followers }}</a></td>
+        </tr>
+        <tr>
+            <th>Following</th>
+            <td><a href="{% url 'show_following' profile.pk %}">{{ profile.get_num_following }}</a></td>
+        </tr>
     </table>
+
+    <p class="inline-actions">
+        <a class="button-link" href="{% url 'update_profile' profile.pk %}">Update Profile</a>
+        <a class="button-link" href="{% url 'show_feed' profile.pk %}">View Feed</a>
+        <a class="button-link" href="{% url 'search' profile.pk %}">Search</a>
+    </p>
 </article>
 
 <section class="profile-posts">
@@ -33,7 +47,7 @@
             <a href="{% url 'show_post' post.pk %}">
                 {% with photos=post.get_all_photos %}
                     {% if photos %}
-                    <img src="{{ photos.0.image_url }}" alt="Preview image for post {{ post.pk }}">
+                    <img src="{{ photos.0.get_image_url }}" alt="Preview image for post {{ post.pk }}">
                     {% else %}
                     <img src="https://placehold.co/600x600?text=No+Image" alt="No image available">
                     {% endif %}
@@ -41,6 +55,8 @@
             </a>
             <div class="post-meta">
                 <p>{{ post.caption|default:"(No caption)" }}</p>
+                <p>{{ post.get_likes.count }} likes</p>
+                <p>{{ post.get_all_comments.count }} comments</p>
                 <p class="post-time">{{ post.timestamp }}</p>
             </div>
         </article>
