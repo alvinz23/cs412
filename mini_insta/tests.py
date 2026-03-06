@@ -1,9 +1,10 @@
 """
 Author: Alvin Zhu
 Email: alvinz@bu.edu
-Description: Smoke tests for the mini_insta application.
+Description: Smoke tests for mini_insta authentication and core features.
 """
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
@@ -11,7 +12,7 @@ from .models import Comment, Follow, Like, Photo, Post, Profile
 
 
 class MiniInstaTests(TestCase):
-    """Verify core mini_insta model accessors and views."""
+    """Verify core mini_insta model and auth-backed view behaviors."""
 
     def setUp(self):
         """
@@ -21,7 +22,16 @@ class MiniInstaTests(TestCase):
         self (MiniInstaTests): The current test case instance.
         """
 
+        self.alice_user = User.objects.create_user(
+            username="alice_user",
+            password="pass12345",
+        )
+        self.bob_user = User.objects.create_user(
+            username="bob_user",
+            password="pass12345",
+        )
         self.alice = Profile.objects.create(
+            user=self.alice_user,
             username="alice",
             display_name="Alice",
             profile_image_url="https://example.com/alice.jpg",
@@ -29,6 +39,7 @@ class MiniInstaTests(TestCase):
             join_date="2026-01-01",
         )
         self.bob = Profile.objects.create(
+            user=self.bob_user,
             username="bob",
             display_name="Bob",
             profile_image_url="https://example.com/bob.jpg",
@@ -87,10 +98,33 @@ class MiniInstaTests(TestCase):
         self (MiniInstaTests): The current test case instance.
         """
 
-        response = self.client.get(
-            reverse("search", kwargs={"pk": self.bob.pk}),
-            {"query": "Boston"},
-        )
+        self.assertEqual(self.client.login(username="bob_user", password="pass12345"), True)
+        response = self.client.get(reverse("search"), {"query": "Boston"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Trip to Boston")
         self.assertContains(response, "Matching Profiles")
+
+    def test_create_post_requires_login(self):
+        """
+        Verify unauthenticated requests redirect to login for create post.
+
+        Parameters:
+        self (MiniInstaTests): The current test case instance.
+        """
+
+        response = self.client.get(reverse("create_post"))
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse("login"), response.url)
+
+    def test_like_post_for_other_profile(self):
+        """
+        Verify a logged-in profile can like another profile's post.
+
+        Parameters:
+        self (MiniInstaTests): The current test case instance.
+        """
+
+        self.assertEqual(self.client.login(username="bob_user", password="pass12345"), True)
+        response = self.client.post(reverse("like_post", kwargs={"pk": self.post.pk}))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Like.objects.filter(post=self.post, profile=self.bob).exists())

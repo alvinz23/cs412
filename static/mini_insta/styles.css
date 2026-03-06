@@ -33,6 +33,21 @@ img {
     margin-right: 12px;
 }
 
+.site-footer form {
+    display: inline-block;
+    margin: 0 8px 0 0;
+}
+
+.site-footer button {
+    background: transparent;
+    border: 0;
+    color: #93c5fd;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+}
+
 .site-header a:hover,
 .site-footer a:hover {
     text-decoration: underline;
@@ -205,6 +220,10 @@ img {
     align-items: center;
 }
 
+.inline-form {
+    margin: 0;
+}
+
 .form-actions button,
 .button-link {
     background: #1f2937;
@@ -216,8 +235,21 @@ img {
     cursor: pointer;
 }
 
+.inline-form button {
+    background: #1f2937;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 .form-actions button:hover,
 .button-link:hover {
+    background: #111827;
+}
+
+.inline-form button:hover {
     background: #111827;
 }
 

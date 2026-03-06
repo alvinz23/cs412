@@ -33,9 +33,23 @@
     </table>
 
     <p class="inline-actions">
-        <a class="button-link" href="{% url 'update_profile' profile.pk %}">Update Profile</a>
-        <a class="button-link" href="{% url 'show_feed' profile.pk %}">View Feed</a>
-        <a class="button-link" href="{% url 'search' profile.pk %}">Search</a>
+        {% if user.is_authenticated and user_profile and user_profile.pk == profile.pk %}
+        <a class="button-link" href="{% url 'update_profile' %}">Update Profile</a>
+        <a class="button-link" href="{% url 'show_feed' %}">View Feed</a>
+        <a class="button-link" href="{% url 'search' %}">Search</a>
+        {% elif user.is_authenticated and user_profile and user_profile.pk != profile.pk %}
+            {% if user_profile in profile.get_followers %}
+            <form action="{% url 'delete_follow_profile' profile.pk %}" method="POST" class="inline-form">
+                {% csrf_token %}
+                <button type="submit">Unfollow</button>
+            </form>
+            {% else %}
+            <form action="{% url 'follow_profile' profile.pk %}" method="POST" class="inline-form">
+                {% csrf_token %}
+                <button type="submit">Follow</button>
+            </form>
+            {% endif %}
+        {% endif %}
     </p>
 </article>
 

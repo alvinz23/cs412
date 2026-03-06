@@ -5,12 +5,14 @@ Description: Data models for the mini_insta application.
 """
 
 from django.db import models
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 
 class Profile(models.Model):
     """Represent one mini_insta user profile."""
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     username = models.CharField(max_length=50, unique=True)
     display_name = models.CharField(max_length=100)
     profile_image_url = models.URLField()
@@ -102,6 +104,21 @@ class Profile(models.Model):
 
         return reverse("show_profile", kwargs={"pk": self.pk})
 
+    def is_followed_by(self, other_profile):
+        """
+        Return True if other_profile currently follows this profile.
+
+        Parameters:
+        self (Profile): The profile being followed.
+        other_profile (Profile): The profile that may be following self.
+        """
+
+        if other_profile is None:
+            return False
+        return Follow.objects.filter(
+            profile=self, follower_profile=other_profile
+        ).exists()
+
 
 class Post(models.Model):
     """Represent one post created by a profile."""
@@ -160,6 +177,30 @@ class Post(models.Model):
         """
 
         return Like.objects.filter(post=self).order_by("-timestamp")
+
+    def get_liked_profiles(self):
+        """
+        Return a list of Profiles that liked this post.
+
+        Parameters:
+        self (Post): The current post instance.
+        """
+
+        likes = self.get_likes().select_related("profile")
+        return [like.profile for like in likes]
+
+    def is_liked_by(self, profile):
+        """
+        Return True if profile has liked this post.
+
+        Parameters:
+        self (Post): The current post instance.
+        profile (Profile): The profile that may have liked this post.
+        """
+
+        if profile is None:
+            return False
+        return Like.objects.filter(post=self, profile=profile).exists()
 
 
 class Photo(models.Model):

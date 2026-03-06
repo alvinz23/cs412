@@ -1,0 +1,22 @@
+{% extends "mini_insta/base.html" %}
+
+{% block content %}
+<h2>Create Profile</h2>
+
+<section class="form-panel">
+    <form action="{% url 'create_profile' %}" method="POST">
+        {% csrf_token %}
+
+        <h3>User Account</h3>
+        {{ user_creation_form.as_p }}
+
+        <h3>Profile Details</h3>
+        {{ form.as_p }}
+
+        <p class="form-actions">
+            <button type="submit">Create Account</button>
+            <a class="button-link" href="{% url 'show_all_profiles' %}">Cancel</a>
+        </p>
+    </form>
+</section>
+{% endblock %}

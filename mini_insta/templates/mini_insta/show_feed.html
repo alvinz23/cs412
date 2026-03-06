@@ -4,6 +4,7 @@
 <h2>{{ profile.display_name }} Feed</h2>
 
 <section class="feed-list">
+    <p><a href="{% url 'show_my_profile' %}">Back to My Profile</a></p>
     {% for post in posts %}
     <article class="single-post">
         <p><strong><a href="{% url 'show_profile' post.profile.pk %}">{{ post.profile.display_name }}</a></strong></p>

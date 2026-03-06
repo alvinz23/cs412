@@ -4,7 +4,7 @@
 <h2>Create Post for {{ profile.display_name }}</h2>
 
 <section class="form-panel">
-    <form action="{% url 'create_post' profile.pk %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'create_post' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         <p>
@@ -19,7 +19,7 @@
 
         <p class="form-actions">
             <button type="submit">Submit Post</button>
-            <a class="button-link" href="{% url 'show_profile' profile.pk %}">Cancel</a>
+            <a class="button-link" href="{% url 'show_my_profile' %}">Cancel</a>
         </p>
     </form>
 </section>

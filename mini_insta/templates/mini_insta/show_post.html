@@ -10,8 +10,23 @@
     <p><strong>Timestamp:</strong> {{ post.timestamp }}</p>
 
     <p class="inline-actions">
+        {% if user.is_authenticated and user_profile and user_profile.pk != post.profile.pk %}
+            {% if user_profile in post.get_liked_profiles %}
+            <form action="{% url 'delete_like_post' post.pk %}" method="POST" class="inline-form">
+                {% csrf_token %}
+                <button type="submit">Unlike</button>
+            </form>
+            {% else %}
+            <form action="{% url 'like_post' post.pk %}" method="POST" class="inline-form">
+                {% csrf_token %}
+                <button type="submit">Like</button>
+            </form>
+            {% endif %}
+        {% endif %}
+        {% if user.is_authenticated and user_profile and user_profile.pk == post.profile.pk %}
         <a class="button-link" href="{% url 'update_post' post.pk %}">Update</a>
         <a class="button-link" href="{% url 'delete_post' post.pk %}">Delete</a>
+        {% endif %}
     </p>
 
     <h3>Photos</h3>

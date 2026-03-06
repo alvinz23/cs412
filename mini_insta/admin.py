@@ -13,8 +13,8 @@ from .models import Comment, Follow, Like, Photo, Post, Profile
 class ProfileAdmin(admin.ModelAdmin):
     """Define Django admin options for Profile records."""
 
-    list_display = ("username", "display_name", "join_date")
-    search_fields = ("username", "display_name")
+    list_display = ("username", "display_name", "user", "join_date")
+    search_fields = ("username", "display_name", "user__username")
 
 
 @admin.register(Post)
