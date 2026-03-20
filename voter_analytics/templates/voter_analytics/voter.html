@@ -1,0 +1,22 @@
+{% extends "voter_analytics/base.html" %}
+
+{% block content %}
+<h2>{{ voter.first_name }} {{ voter.last_name }}</h2>
+
+<article class="detail-card">
+    <p><strong>Street Address:</strong> {{ voter.get_street_address }}</p>
+    <p><strong>Date of Birth:</strong> {{ voter.date_of_birth }}</p>
+    <p><strong>Date of Registration:</strong> {{ voter.date_of_registration }}</p>
+    <p><strong>Party Affiliation:</strong> {{ voter.party_affiliation }}</p>
+    <p><strong>Precinct Number:</strong> {{ voter.precinct_number }}</p>
+    <p><strong>Voter Score:</strong> {{ voter.voter_score }}</p>
+    <p><strong>v20state:</strong> {{ voter.v20state }}</p>
+    <p><strong>v21town:</strong> {{ voter.v21town }}</p>
+    <p><strong>v21primary:</strong> {{ voter.v21primary }}</p>
+    <p><strong>v22general:</strong> {{ voter.v22general }}</p>
+    <p><strong>v23town:</strong> {{ voter.v23town }}</p>
+    <p><a href="{{ voter.get_google_maps_url }}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></p>
+</article>
+
+<p><a href="{% url 'voters' %}">Back to voters list</a></p>
+{% endblock %}

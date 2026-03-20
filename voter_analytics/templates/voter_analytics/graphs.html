@@ -1,0 +1,20 @@
+{% extends "voter_analytics/base.html" %}
+
+{% block content %}
+<h2>Voter Graphs</h2>
+{% include "voter_analytics/_filters.html" %}
+
+<section class="graph-grid">
+    <article class="graph-card">
+        {{ birth_year_graph|safe }}
+    </article>
+    <article class="graph-card">
+        {{ party_graph|safe }}
+    </article>
+    <article class="graph-card">
+        {{ election_graph|safe }}
+    </article>
+</section>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+{% endblock %}

@@ -24,7 +24,9 @@ urlpatterns = [
     path('cs412/quotes/', include('quotes.urls')),
     path('cs412/restaurant/', include('restaurant.urls')),
     path('cs412/mini_insta/', include('mini_insta.urls')),
+    path('cs412/voter_analytics/', include('voter_analytics.urls')),
     path('mini_insta/', include('mini_insta.urls')),
+    path('voter_analytics/', include('voter_analytics.urls')),
 ]
 
 if settings.DEBUG:
