@@ -132,9 +132,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = "/media/"
 
-# BU webapps deploy path is /home/ugrad/<username>/webapps/<project>.
-# Detect that path instead of hostname so deployment works on hosts like csa2/csa3.
-if "/webapps/" in str(BASE_DIR):
+# BU webapps deploy path can be symlinked (e.g. /home/ugrad/<username>/w/<project>)
+# instead of containing "/webapps/". Detect BU home path robustly.
+if str(BASE_DIR).startswith("/home/ugrad/"):
     STATIC_URL = '/cs412/static/'
     MEDIA_URL = '/cs412/media/'
 
