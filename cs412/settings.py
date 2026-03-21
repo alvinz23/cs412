@@ -135,8 +135,8 @@ MEDIA_URL = "/media/"
 # BU webapps deploy path can be symlinked (e.g. /home/ugrad/<username>/w/<project>)
 # instead of containing "/webapps/". Detect BU home path robustly.
 if str(BASE_DIR).startswith("/home/ugrad/"):
-    STATIC_URL = '/alvinz/static/'
-    MEDIA_URL = '/alvinz/media/'
+    STATIC_URL = '/alvinz/cs412/static/'
+    MEDIA_URL = '/alvinz/cs412/media/'
 
 
 # Default primary key field type
