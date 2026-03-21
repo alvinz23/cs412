@@ -25,10 +25,12 @@ urlpatterns = [
     path('cs412/restaurant/', include('restaurant.urls')),
     path('cs412/mini_insta/', include('mini_insta.urls')),
     path('cs412/voter_analytics/', include('voter_analytics.urls')),
-    path('mini_insta/', include('mini_insta.urls')),
-    path('voter_analytics/', include('voter_analytics.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # BU webapps strips "/alvinz" before routing to Django.
+    # Provide compatibility routes for local path seen by Django.
+    urlpatterns += static('/cs412/static/', document_root=settings.STATIC_ROOT)
+    urlpatterns += static('/cs412/media/', document_root=settings.MEDIA_ROOT)
