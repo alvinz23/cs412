@@ -135,8 +135,8 @@ MEDIA_URL = "/media/"
 # BU webapps deploy path is /home/ugrad/<username>/webapps/<project>.
 # Detect that path instead of hostname so deployment works on hosts like csa2/csa3.
 if "/webapps/" in str(BASE_DIR):
-    STATIC_URL = '/alvinz/static/'
-    MEDIA_URL = '/alvinz/media/'
+    STATIC_URL = '/alvinz/cs412/static/'
+    MEDIA_URL = '/alvinz/cs412/media/'
 
 
 # Default primary key field type
