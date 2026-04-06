@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-m0mdr0rxg459s^z)12_ei2cx$fd%%og=h9#55wfuv*tda&_efj
 DEBUG = True
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ['cs-webapps.bu.edu', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['cs-webapps.bu.edu', '127.0.0.1', 'localhost', '10.239.67.127']
 
 
 
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'restaurant',
     'mini_insta',
     'voter_analytics',
+    'rest_framework',
+    'dadjokes',
 ]
 
 MIDDLEWARE = [

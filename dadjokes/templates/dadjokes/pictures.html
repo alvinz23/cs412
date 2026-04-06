@@ -1,0 +1,13 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+  <h2>All Pictures</h2>
+  {% for picture in pictures %}
+    <div class="card">
+      <img src="{{ picture.image_url }}" alt="Picture {{ picture.pk }}" />
+      <p class="meta">Contributed by {{ picture.contributor }} | <a href="{% url 'dadjokes_picture_detail' picture.pk %}">Details</a></p>
+    </div>
+  {% empty %}
+    <p>No pictures found.</p>
+  {% endfor %}
+{% endblock %}
