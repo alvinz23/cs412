@@ -14,6 +14,22 @@ from .api_serializers import (
 )
 
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def api_root(request):
+    # Simple API index page so /api/ returns 200.
+    return Response(
+        {
+            "login": "/cs412/mini_insta/api/login",
+            "profiles": "/cs412/mini_insta/api/profiles",
+            "profile": "/cs412/mini_insta/api/profile/<id>",
+            "profile_posts": "/cs412/mini_insta/api/profile/<id>/posts",
+            "feed": "/cs412/mini_insta/api/profile/<id>/feed",
+            "create_post": "/cs412/mini_insta/api/posts",
+        }
+    )
+
+
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def api_login(request):

@@ -31,6 +31,7 @@ from .views import (
 
 urlpatterns = [
     # API routes used by the React Native app.
+    path("api/", api_views.api_root, name="api_root"),
     path("api/login", api_views.api_login, name="api_login"),
     path("api/profiles", api_views.api_profiles, name="api_profiles"),
     path("api/profile/<int:pk>", api_views.api_profile, name="api_profile"),
