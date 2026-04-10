@@ -7,6 +7,7 @@ Description: URL patterns for the mini_insta application.
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
+from . import api_views
 from .views import (
     CreatePostView,
     CreateProfileView,
@@ -29,6 +30,13 @@ from .views import (
 )
 
 urlpatterns = [
+    # API routes used by the React Native app.
+    path("api/login", api_views.api_login, name="api_login"),
+    path("api/profiles", api_views.api_profiles, name="api_profiles"),
+    path("api/profile/<int:pk>", api_views.api_profile, name="api_profile"),
+    path("api/profile/<int:pk>/posts", api_views.api_profile_posts, name="api_profile_posts"),
+    path("api/profile/<int:pk>/feed", api_views.api_profile_feed, name="api_profile_feed"),
+    path("api/posts", api_views.api_create_post, name="api_create_post"),
     path("", ProfileListView.as_view(), name="show_all_profiles"),
     path("create_profile", CreateProfileView.as_view(), name="create_profile"),
     path(

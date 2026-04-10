@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mini_insta',
     'voter_analytics',
     'rest_framework',
+    'rest_framework.authtoken',
     'dadjokes',
 ]
 
@@ -145,3 +146,12 @@ if str(BASE_DIR).startswith("/home/ugrad/"):
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
+}

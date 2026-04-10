@@ -146,6 +146,8 @@ class MyProfileDetailView(MiniInstaLoginRequiredMixin, DetailView):
         kwargs (dict): Additional keyword arguments from Django.
         """
 
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
         if not Profile.objects.filter(user=request.user).exists():
             return redirect("create_profile")
         return super().dispatch(request, *args, **kwargs)
@@ -314,6 +316,8 @@ class UpdateProfileView(OwnedProfileRequiredMixin, UpdateView):
         kwargs (dict): Additional keyword arguments from Django.
         """
 
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
         if not Profile.objects.filter(user=request.user).exists():
             return redirect("create_profile")
         return super().dispatch(request, *args, **kwargs)
