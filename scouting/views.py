@@ -24,7 +24,7 @@ class HomeView(ListView):
         return (
             Player.objects.select_related('team')
             .prefetch_related('reports__skill_grade')
-            .order_by('projected_pick')[:6]
+            .order_by('projected_pick')
         )
 
     def get_context_data(self, **kwargs):
@@ -50,7 +50,11 @@ class HomeView(ListView):
                     'avg_overall': avg_overall,
                 }
             )
-        context['spotlight_players'] = spotlight_players
+        spotlight_players.sort(
+            key=lambda row: row['avg_overall'] if row['avg_overall'] is not None else -1,
+            reverse=True,
+        )
+        context['spotlight_players'] = spotlight_players[:6]
         return context
 
 
