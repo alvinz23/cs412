@@ -11,8 +11,8 @@
             <div class="card-body">
                 <h2 class="h5">Top Overall Prospects</h2>
                 <ol>
-                    {% for p in top_overall %}
-                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.overall_grade }}</li>
+                    {% for row in top_overall %}
+                    <li><a href="{% url 'player-detail' row.player.pk %}">{{ row.player }}</a> - {{ row.avg_overall }}</li>
                     {% empty %}<li>No report data available.</li>{% endfor %}
                 </ol>
             </div>
@@ -23,8 +23,8 @@
             <div class="card-body">
                 <h2 class="h5">Best Shooters</h2>
                 <ol>
-                    {% for p in best_shooters %}
-                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.shooting }}</li>
+                    {% for row in best_shooters %}
+                    <li><a href="{% url 'player-detail' row.player.pk %}">{{ row.player }}</a> - {{ row.avg_shooting }}</li>
                     {% empty %}<li>No report data available.</li>{% endfor %}
                 </ol>
             </div>
@@ -35,8 +35,8 @@
             <div class="card-body">
                 <h2 class="h5">Best Defenders</h2>
                 <ol>
-                    {% for p in best_defenders %}
-                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.defense }}</li>
+                    {% for row in best_defenders %}
+                    <li><a href="{% url 'player-detail' row.player.pk %}">{{ row.player }}</a> - {{ row.avg_defense }}</li>
                     {% empty %}<li>No report data available.</li>{% endfor %}
                 </ol>
             </div>
@@ -47,8 +47,8 @@
             <div class="card-body">
                 <h2 class="h5">Best Athletes</h2>
                 <ol>
-                    {% for p in best_athletes %}
-                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.athleticism }}</li>
+                    {% for row in best_athletes %}
+                    <li><a href="{% url 'player-detail' row.player.pk %}">{{ row.player }}</a> - {{ row.avg_athleticism }}</li>
                     {% empty %}<li>No report data available.</li>{% endfor %}
                 </ol>
             </div>

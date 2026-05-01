@@ -285,32 +285,26 @@ def prospects_filter_view(request):
 def leaderboard_view(request):
     players = Player.objects.select_related('team').prefetch_related('reports__skill_grade').distinct()
 
-    valid_players = []
+    aggregate_rows = []
     for player in players:
-        report = player.reports.first()
-        if report and hasattr(report, 'skill_grade'):
-            valid_players.append(player)
+        graded_reports = [r for r in player.reports.all() if hasattr(r, 'skill_grade')]
+        if not graded_reports:
+            continue
+
+        n = len(graded_reports)
+        row = {
+            'player': player,
+            'avg_overall': round(sum(r.skill_grade.overall_grade for r in graded_reports) / n, 1),
+            'avg_shooting': round(sum(r.skill_grade.shooting for r in graded_reports) / n, 1),
+            'avg_defense': round(sum(r.skill_grade.defense for r in graded_reports) / n, 1),
+            'avg_athleticism': round(sum(r.skill_grade.athleticism for r in graded_reports) / n, 1),
+        }
+        aggregate_rows.append(row)
 
     context = {
-        'top_overall': sorted(
-            valid_players,
-            key=lambda p: p.reports.first().skill_grade.overall_grade,
-            reverse=True,
-        )[:10],
-        'best_shooters': sorted(
-            valid_players,
-            key=lambda p: p.reports.first().skill_grade.shooting,
-            reverse=True,
-        )[:10],
-        'best_defenders': sorted(
-            valid_players,
-            key=lambda p: p.reports.first().skill_grade.defense,
-            reverse=True,
-        )[:10],
-        'best_athletes': sorted(
-            valid_players,
-            key=lambda p: p.reports.first().skill_grade.athleticism,
-            reverse=True,
-        )[:10],
+        'top_overall': sorted(aggregate_rows, key=lambda r: r['avg_overall'], reverse=True)[:10],
+        'best_shooters': sorted(aggregate_rows, key=lambda r: r['avg_shooting'], reverse=True)[:10],
+        'best_defenders': sorted(aggregate_rows, key=lambda r: r['avg_defense'], reverse=True)[:10],
+        'best_athletes': sorted(aggregate_rows, key=lambda r: r['avg_athleticism'], reverse=True)[:10],
     }
     return render(request, 'leaderboards.html', context)
