@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Scouting Report{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">User Scouting Report: {{ report.player }}</h1>
+    <div>
+        {% if report.is_locked %}
+        <span class="badge bg-primary">Locked Report</span>
+        {% elif user.is_authenticated and user.username == report.contributor %}
+        <a class="btn btn-sm btn-primary" href="{% url 'report-update' report.pk %}">Edit</a>
+        <a class="btn btn-sm btn-outline-danger" href="{% url 'report-delete' report.pk %}">Delete</a>
+        {% elif user.is_authenticated %}
+        <span class="badge bg-primary">View Only (Not Your Report)</span>
+        {% else %}
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'login' %}">Login To Manage Reports</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card card-body shadow-sm mb-3">
+    <p><strong>Added by:</strong> {{ report.contributor }}</p>
+    <p><strong>Date Added:</strong> {{ report.created_at|date:"F j, Y, g:i a" }}</p>
+    <p><strong>Scout Rating Level:</strong> {{ report.get_projected_nba_level_display }}</p>
+    <p><strong>Summary:</strong> {{ report.summary }}</p>
+    <p><strong>Strengths:</strong> {{ report.strengths }}</p>
+    <p><strong>Weaknesses:</strong> {{ report.weaknesses }}</p>
+    <p class="mb-1"><strong>NBA Comparison:</strong> {{ report.nba_comparison }}</p>
+    <p class="text-muted mb-0">Updated: {{ report.updated_at }}</p>
+</div>
+
+{% if report.skill_grade %}
+<div class="card card-body shadow-sm">
+    <h2 class="h5">Skill Grades</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-2">
+        <div class="col"><div class="grade-box">Shooting: {{ report.skill_grade.shooting }}</div></div>
+        <div class="col"><div class="grade-box">Finishing: {{ report.skill_grade.finishing }}</div></div>
+        <div class="col"><div class="grade-box">Playmaking: {{ report.skill_grade.playmaking }}</div></div>
+        <div class="col"><div class="grade-box">Defense: {{ report.skill_grade.defense }}</div></div>
+        <div class="col"><div class="grade-box">Athleticism: {{ report.skill_grade.athleticism }}</div></div>
+        <div class="col"><div class="grade-box">Rebounding: {{ report.skill_grade.rebounding }}</div></div>
+        <div class="col"><div class="grade-box">IQ: {{ report.skill_grade.iq }}</div></div>
+        <div class="col"><div class="grade-box overall">Overall: {{ report.skill_grade.overall_grade }}</div></div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

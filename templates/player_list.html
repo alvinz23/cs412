@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Prospects{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Prospect List</h1>
+    {% if user.is_authenticated %}<a class="btn btn-primary" href="{% url 'player-create' %}">Add Prospect</a>{% else %}<a class="btn btn-primary" href="{% url 'login' %}">Login To Add Prospect</a>{% endif %}
+</div>
+
+<div class="table-responsive glass-table">
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Pos</th>
+                <th>School/Program</th>
+                <th>Projected Pick</th>
+                <th>Age</th>
+                <th>Overall</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+            <tr>
+                <td><a href="{% url 'player-detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a></td>
+                <td>{{ player.position }}</td>
+                <td>{{ player.team.name }}</td>
+                <td>#{{ player.projected_pick }}</td>
+                <td>{{ player.age }}</td>
+                <td>
+                    {% with report=player.reports.first %}
+                        {% if report and report.skill_grade %}{{ report.skill_grade.overall_grade }}{% else %}-{% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No prospects found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

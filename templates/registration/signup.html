@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Create Account</h1>
+<form method="post" class="card card-body shadow-sm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <a href="{% url 'login' %}" class="btn btn-outline-secondary">Back To Login</a>
+    </div>
+</form>
+{% endblock %}

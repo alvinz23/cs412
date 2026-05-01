@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ team.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">{{ team.name }}</h1>
+    <div>
+        <a class="btn btn-sm btn-primary" href="{% url 'team-update' team.pk %}">Edit</a>
+        <a class="btn btn-sm btn-outline-danger" href="{% url 'team-delete' team.pk %}">Delete</a>
+    </div>
+</div>
+
+<div class="card card-body shadow-sm mb-4">
+    <p class="mb-1"><strong>Conference:</strong> {{ team.conference }}</p>
+    <p class="mb-1"><strong>Country:</strong> {{ team.country }}</p>
+    {% if team.logo_url %}<img src="{{ team.logo_url }}" alt="{{ team.name }} logo" class="team-logo mt-2">{% endif %}
+</div>
+
+<h2 class="h5 mb-2">Prospects from {{ team.name }}</h2>
+<ul class="list-group shadow-sm">
+    {% for player in team.players.all %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'player-detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a>
+        <span class="badge text-bg-secondary">Pick #{{ player.projected_pick }}</span>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No prospects assigned to this team.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

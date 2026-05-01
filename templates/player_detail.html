@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ player.first_name }} {{ player.last_name }}{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm lift-card">
+            {% if player.image_url %}
+            <img src="{{ player.image_url }}" class="card-img-top player-image" alt="{{ player }}">
+            {% endif %}
+            <div class="card-body">
+                <h1 class="h4">{{ player.first_name }} {{ player.last_name }}</h1>
+                <p class="mb-1"><strong>Position:</strong> {{ player.position }}</p>
+                <p class="mb-1"><strong>Height/Weight:</strong> {{ player.height }} / {{ player.weight }} lbs</p>
+                <p class="mb-1"><strong>Age:</strong> {{ player.age }}</p>
+                <p class="mb-1"><strong>School/Program:</strong> {{ player.team.name }}</p>
+                <p class="mb-3"><strong>Projected Pick:</strong> #{{ player.projected_pick }}</p>
+                <a class="btn btn-sm btn-primary" href="{% url 'player-update' player.pk %}">Edit</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card shadow-sm mb-3 lift-card">
+            <div class="card-body">
+                <h2 class="h5">Bio</h2>
+                <p class="mb-0">{{ player.bio }}</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h5 mb-0">Scouting Reports</h2>
+            {% if user.is_authenticated %}
+            <a href="{% url 'report-create' %}?player={{ player.pk }}" class="btn btn-sm btn-outline-primary">Add Report</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-sm btn-outline-primary">Login To Add Report</a>
+            {% endif %}
+        </div>
+        {% for report in player.reports.all %}
+        <div class="card shadow-sm mb-3 report-card">
+            <div class="card-body">
+                <h3 class="h6">
+                    <a href="{% url 'report-detail' report.pk %}">
+                        Report added by {{ report.contributor }} on {{ report.created_at|date:"M j, Y" }}
+                    </a>
+                </h3>
+                <p>{{ report.summary|truncatewords:35 }}</p>
+                {% if report.skill_grade %}
+                <span class="badge bg-success">Overall: {{ report.skill_grade.overall_grade }}</span>
+                {% endif %}
+                <span class="badge bg-primary ms-1">{{ report.get_projected_nba_level_display }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No scouting reports yet for this player.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | 2026 NBA Draft Scouting Database{% endblock %}
+
+{% block content %}
+<section class="hero-card p-4 p-md-5 mb-4">
+    <span class="eyebrow">Scouting Platform</span>
+    <h1 class="display-6 fw-bold">2026 NBA Draft Scouting Database</h1>
+    <p class="lead mb-3">Track prospects, build scouting reports, and evaluate draft readiness with a searchable database.</p>
+    <div class="d-flex gap-2 flex-wrap">
+        <a href="{% url 'player-list' %}" class="btn btn-primary">View Prospects</a>
+        <a href="{% url 'report-create' %}" class="btn btn-outline-light">Add Report</a>
+    </div>
+</section>
+
+<h2 class="h4 mt-4 mb-3">Prospect Spotlight</h2>
+<div class="row g-3">
+    {% for item in spotlight_players %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm lift-card">
+            {% if item.player.image_url %}
+            <img src="{{ item.player.image_url }}" class="card-img-top player-image" alt="{{ item.player }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title mb-2">
+                    <a href="{% url 'player-detail' item.player.pk %}">
+                        #{{ item.player.projected_pick }} {{ item.player.first_name }} {{ item.player.last_name }}
+                    </a>
+                </h5>
+                <p class="mb-1"><strong>School:</strong> {{ item.player.team.name }}</p>
+                <p class="mb-1"><strong>Reports:</strong> {{ item.report_count }}</p>
+                <p class="mb-0">
+                    <strong>Avg Overall Grade:</strong>
+                    {% if item.avg_overall is not None %}
+                        {{ item.avg_overall }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

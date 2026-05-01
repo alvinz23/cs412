@@ -1,0 +1,324 @@
+:root {
+    --bg: #120224;
+    --bg-grid: #24113d;
+    --panel: #1b0f2f;
+    --panel-2: #241742;
+    --ink: #f8f6ff;
+    --muted: #c9bef5;
+    --line: #6e56cf;
+    --cyan: #33ffd2;
+    --magenta: #ff4fd8;
+    --yellow: #ffe66d;
+    --orange: #ff9f45;
+    --shadow: 0 0 0 3px #000, 0 0 0 6px var(--line);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    color: var(--ink);
+    font-size: 1.45rem;
+    line-height: 1.25;
+    min-height: 100vh;
+    background:
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+        radial-gradient(circle at 20% 15%, rgba(255, 79, 216, 0.18), transparent 25%),
+        radial-gradient(circle at 85% 85%, rgba(51, 255, 210, 0.14), transparent 30%),
+        var(--bg);
+    background-size: 24px 24px, 24px 24px, auto, auto, auto;
+    position: relative;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand,
+.btn,
+.eyebrow,
+.table thead th {
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+}
+
+a {
+    color: var(--cyan);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--yellow);
+}
+
+.app-nav {
+    background: linear-gradient(180deg, #2d1952, #1b0f2f);
+    border-bottom: 3px solid var(--magenta);
+}
+
+.navbar-brand {
+    color: var(--yellow);
+    font-size: 0.9rem;
+}
+
+.nav-link {
+    color: var(--ink);
+    border: 2px solid transparent;
+    border-radius: 0;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.95rem;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--yellow);
+    border-color: var(--cyan);
+    background: rgba(51, 255, 210, 0.1);
+}
+
+.bg-orb {
+    display: none;
+}
+
+.app-shell {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-card {
+    background: linear-gradient(135deg, #2a1453 0%, #44237a 45%, #1d0f33 100%);
+    border: 3px solid var(--cyan);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+    color: var(--ink);
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: 0.56rem;
+    color: var(--yellow);
+    margin-bottom: 0.6rem;
+}
+
+.hero-card .btn-primary {
+    background: var(--yellow);
+    color: #2f1450;
+    border: 3px solid #000;
+}
+
+.hero-card .btn-outline-light {
+    border: 3px solid var(--cyan);
+    color: var(--cyan);
+}
+
+.stat-card,
+.card,
+form.card,
+.table-responsive {
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    border: 3px solid var(--line);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+}
+
+.stat-card h5 {
+    color: var(--cyan);
+    font-size: 0.62rem;
+}
+
+.stat-card p {
+    color: var(--yellow);
+    font-size: 2rem;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.player-image {
+    height: 230px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--line);
+    image-rendering: pixelated;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255, 79, 216, 0.08);
+    --bs-table-hover-bg: rgba(51, 255, 210, 0.11);
+    color: var(--ink);
+    border-color: #4b3580;
+}
+
+.table td,
+.table th,
+.table a {
+    color: #f8f6ff !important;
+}
+
+.table a:hover {
+    color: var(--yellow) !important;
+}
+
+.table thead th {
+    color: var(--yellow);
+    font-size: 0.54rem;
+}
+
+.btn {
+    border-radius: 0;
+    border: 3px solid #000;
+    font-size: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    box-shadow: 3px 3px 0 #000;
+}
+
+.btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, #4ddcff, #2e7cf6);
+    color: #f8f6ff;
+}
+
+.btn-outline-primary {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: rgba(51, 255, 210, 0.15);
+    color: var(--yellow);
+    border-color: var(--yellow);
+}
+
+.btn-outline-secondary {
+    border-color: #bda6ff;
+    color: #dfd2ff;
+}
+
+.btn-outline-danger {
+    border-color: #ff7b92;
+    color: #ffb3c0;
+}
+
+.badge {
+    border-radius: 0;
+    border: 2px solid #000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.48rem;
+    padding: 0.38rem 0.45rem;
+}
+
+.badge.bg-success {
+    background: #44f2b5 !important;
+    color: #1a0630;
+}
+
+.badge.bg-primary {
+    background: #77a7ff !important;
+    color: #1a0630;
+}
+
+.report-card {
+    border-left: 6px solid var(--magenta);
+}
+
+.rank-overall {
+    border-color: var(--yellow);
+}
+
+.rank-shooting {
+    border-color: var(--cyan);
+}
+
+.rank-defense {
+    border-color: #97ff8b;
+}
+
+.rank-athlete {
+    border-color: var(--orange);
+}
+
+form p label,
+.form-label {
+    color: var(--cyan);
+    font-size: 0.58rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 3px solid #4b3580;
+    border-radius: 0;
+    padding: 0.5rem 0.6rem;
+    background: #110a1f;
+    color: var(--ink);
+    font-size: 1.3rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(51, 255, 210, 0.25);
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.grade-box {
+    background: #1a1030;
+    border: 3px solid #4f3890;
+    border-radius: 0;
+    padding: 0.6rem;
+    color: #d9d0ff;
+    font-weight: 700;
+}
+
+.grade-box.overall {
+    background: #2e1a0d;
+    border-color: var(--orange);
+    color: #ffd89b;
+}
+
+.card-title,
+.h3,
+.h4,
+.h5 {
+    color: #fff8cc;
+}
+
+.text-muted {
+    color: #f8f6ff !important;
+}
+
+.card-body p,
+.card-body li,
+.card-body span,
+.card-body div {
+    color: #f8f6ff;
+}
+
+.card-body strong {
+    color: #ffffff;
+}
+
+.app-footer {
+    border-top: 3px solid var(--magenta);
+    background: #1b0f2f;
+    color: #ddcfff;
+    position: relative;
+    z-index: 2;
+    font-size: 1.1rem;
+}

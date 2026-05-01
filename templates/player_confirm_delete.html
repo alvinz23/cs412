@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="h3 mb-3">Delete Prospect</h1>
+<form method="post" class="card card-body shadow-sm">
+    {% csrf_token %}
+    <p>Delete <strong>{{ object }}</strong>? This also deletes associated scouting reports.</p>
+    <button class="btn btn-danger" type="submit">Confirm Delete</button>
+</form>
+{% endblock %}

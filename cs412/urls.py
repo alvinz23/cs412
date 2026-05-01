@@ -26,6 +26,8 @@ urlpatterns = [
     path('cs412/mini_insta/', include('mini_insta.urls')),
     path('cs412/voter_analytics/', include('voter_analytics.urls')),
     path('cs412/dadjokes/', include('dadjokes.urls')),
+    path('cs412/final/accounts/', include('django.contrib.auth.urls')),
+    path('cs412/final/', include('scouting.urls')),
 ]
 
 if settings.DEBUG:

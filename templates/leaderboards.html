@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboards{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Leaderboard Reports</h1>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100 rank-card rank-overall">
+            <div class="card-body">
+                <h2 class="h5">Top Overall Prospects</h2>
+                <ol>
+                    {% for p in top_overall %}
+                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.overall_grade }}</li>
+                    {% empty %}<li>No report data available.</li>{% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100 rank-card rank-shooting">
+            <div class="card-body">
+                <h2 class="h5">Best Shooters</h2>
+                <ol>
+                    {% for p in best_shooters %}
+                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.shooting }}</li>
+                    {% empty %}<li>No report data available.</li>{% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100 rank-card rank-defense">
+            <div class="card-body">
+                <h2 class="h5">Best Defenders</h2>
+                <ol>
+                    {% for p in best_defenders %}
+                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.defense }}</li>
+                    {% empty %}<li>No report data available.</li>{% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100 rank-card rank-athlete">
+            <div class="card-body">
+                <h2 class="h5">Best Athletes</h2>
+                <ol>
+                    {% for p in best_athletes %}
+                    <li><a href="{% url 'player-detail' p.pk %}">{{ p }}</a> - {{ p.reports.first.skill_grade.athleticism }}</li>
+                    {% empty %}<li>No report data available.</li>{% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

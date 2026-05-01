@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Teams{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Teams</h1>
+    <a class="btn btn-primary" href="{% url 'team-create' %}">Add Team</a>
+</div>
+<div class="row g-3">
+    {% for team in teams %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h5"><a href="{% url 'team-detail' team.pk %}">{{ team.name }}</a></h2>
+                <p class="mb-1"><strong>Conference:</strong> {{ team.conference }}</p>
+                <p class="mb-0"><strong>Country:</strong> {{ team.country }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No teams yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

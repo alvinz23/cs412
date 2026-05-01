@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Prospect Filters{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Prospect Search & Filter</h1>
+<form method="get" class="card card-body shadow-sm mb-4 filter-shell">
+    <div class="row g-2">
+        {% for field in form %}
+        <div class="col-md-4">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mt-3 d-flex gap-2">
+        <button class="btn btn-primary" type="submit">Apply Filters</button>
+        <a class="btn btn-outline-secondary" href="{% url 'prospect-filter' %}">Reset</a>
+    </div>
+</form>
+
+<h2 class="h5">Results ({{ players|length }})</h2>
+<div class="table-responsive glass-table">
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>School/Program</th>
+                <th>Pos</th>
+                <th>Pick</th>
+                <th>Age</th>
+                <th>Overall</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in players %}
+            <tr>
+                <td><a href="{% url 'player-detail' player.pk %}">{{ player.first_name }} {{ player.last_name }}</a></td>
+                <td>{{ player.team.name }}</td>
+                <td>{{ player.position }}</td>
+                <td>#{{ player.projected_pick }}</td>
+                <td>{{ player.age }}</td>
+                <td>
+                    {% with report=player.reports.first %}
+                    {% if report and report.skill_grade %}
+                        {{ report.skill_grade.overall_grade }}
+                    {% else %}
+                        -
+                    {% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No players match the selected filters.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
